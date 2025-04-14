@@ -2,18 +2,21 @@ package io.github.yuokada.simulations;
 
 public record SimulationConfig(
     String schema,
-    Integer numberOfSimulationClients,
-    Integer numberOfRequests
+    Integer maxConcurrentClients,
+    Integer testDurationSeconds
 ) {
     public SimulationConfig {
-        if (schema == null || schema.isEmpty()) {
+        if (schema == null) {
+            schema = "sample_datasets";
+        }
+        if (schema.isEmpty()) {
             throw new IllegalArgumentException("Schema cannot be null or empty");
         }
-        if (numberOfSimulationClients == null || numberOfSimulationClients <= 0) {
-            throw new IllegalArgumentException("Number of simulation clients must be greater than 0");
+        if (maxConcurrentClients == null || maxConcurrentClients <= 0) {
+            throw new IllegalArgumentException("max-concurrent-clients must be greater than 0");
         }
-        if (numberOfRequests == null || numberOfRequests <= 0) {
-            throw new IllegalArgumentException("Number of requests must be greater than 0");
+        if (testDurationSeconds == null || testDurationSeconds <= 0) {
+            throw new IllegalArgumentException("test-duration-seconds must be greater than 0");
         }
     }
 }
