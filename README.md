@@ -20,6 +20,21 @@ or
 ./mvnw clean compile scala:testCompile gatling:test
 ```
 
+## Run simulations with a docker image
+
+```shell
+docker run --rm -it \
+  -v "$PWD/results:/app/target/gatling" \
+  gatling-runner
+```
+or
+
+```shell
+docker run --rm -it \
+  -v "$PWD/results:/app/target/gatling" \
+  gatling-runner mvn gatling:test -Dgatling.simulationClass=simulations.BasicSimulation
+```
+
 ## Tips
 
 ## Tune simulation configuration
@@ -33,3 +48,6 @@ $ vim src/main/resources/application.properties
 - https://docs.gatling.io/reference/integrations/build-tools/maven-plugin/
 - https://github.com/gatling/gatling-maven-plugin
 - https://github.com/aliesbelik/awesome-gatling
+- https://github.com/gatling/gatling-maven-plugin-demo-java/tree/main
+  - https://github.com/gatling/gatling-maven-plugin-demo-java/blob/main/src/test/java/example/BasicSimulation.java
+  - https://github.com/gatling/gatling-maven-plugin-demo-java/tree/main/src/test/resources

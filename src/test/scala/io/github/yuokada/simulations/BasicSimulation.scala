@@ -33,7 +33,7 @@ class BasicSimulation extends Simulation {
     .exec(http("Request_3").get("/?foo=bar&baz=qux").check(status.is(200)))
     .pause(150.millis)
 
-  private val sch1 = scenario("Treasure Data Query Scenario")
+  private val scn1 = scenario("Treasure Data Query Scenario")
     .exec { session =>
       val jobId = client.submit(TDJobRequest.newPrestoQuery(defaultSchema, feeder.generate()))
 
@@ -58,5 +58,5 @@ class BasicSimulation extends Simulation {
 //      .during(30.seconds))
 //      .throttle(jumpToRps(10), holdFor(10.minutes))
 //  ).protocols(httpProtocol)
-  setUp(sch1.inject(constantUsersPerSec(3).during(30.seconds)))
+  setUp(scn.inject(constantUsersPerSec(3).during(30.seconds))).protocols(httpProtocol)
 }

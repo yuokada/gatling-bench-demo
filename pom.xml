@@ -95,9 +95,14 @@
                 <groupId>io.gatling</groupId>
                 <artifactId>gatling-maven-plugin</artifactId>
                 <version>4.9.0</version>
+                <!--
+                    The configuration tag is disabled because the -D option is used to specify the simulation class.
+                -->
+                <!--
                 <configuration>
                     <simulationClass>io.github.yuokada.simulations.TdBasicSimulation</simulationClass>
                 </configuration>
+                -->
                 <executions>
                     <execution>
                         <goals>
@@ -106,22 +111,32 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.antipathy</groupId>
-                <artifactId>mvn-scalafmt_${scala.major-version}</artifactId>
-                <version>1.1.1684076452.9f83818</version>
-                <configuration>
-                    <configLocation>${project.basedir}/.scalafmt.conf</configLocation>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>format</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>scalafmt</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.antipathy</groupId>
+                        <artifactId>mvn-scalafmt_${scala.major-version}</artifactId>
+                        <version>1.1.1684076452.9f83818</version>
+                        <configuration>
+                            <configLocation>${project.basedir}/.scalafmt.conf</configLocation>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>format</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
