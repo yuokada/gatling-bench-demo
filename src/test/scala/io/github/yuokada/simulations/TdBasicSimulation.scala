@@ -8,8 +8,8 @@ import scala.concurrent.duration.DurationInt
 
 class TdBasicSimulation extends Simulation {
   private val apiConfig = LoadSimulationConfig.loadApiConfig()
-  private val endpoint  = apiConfig.endpoint()
-  private val token     = apiConfig.token()
+  private val endpoint  = apiConfig.endpoint
+  private val token     = apiConfig.token
   private val tdClient = TDClient
     .newBuilder()
     .setEndpoint(endpoint)
@@ -17,7 +17,7 @@ class TdBasicSimulation extends Simulation {
     .build();
 
   private val simulationConfig = LoadSimulationConfig.loadSimulationConfig()
-  private val defaultSchema    = simulationConfig.schema()
+  private val defaultSchema    = simulationConfig.schema
 
   private val scn = scenario("TD Query Scenario")
     .feed(TpchQueryFeeder)
@@ -32,8 +32,8 @@ class TdBasicSimulation extends Simulation {
 
   setUp(
     scn.inject(
-      constantUsersPerSec(simulationConfig.maxConcurrentClients().doubleValue())
-        .during(simulationConfig.testDurationSeconds().seconds)
+      constantUsersPerSec(simulationConfig.maxConcurrentClients.doubleValue())
+        .during(simulationConfig.testDurationSeconds.seconds)
     )
   )
 }

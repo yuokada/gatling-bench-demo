@@ -16,8 +16,8 @@ class BasicSimulation extends Simulation {
   private val feeder = TpchQueryFeeder
 
   private val apiConfig: TdApiConfig = LoadSimulationConfig.loadApiConfig()
-  private val endpoint               = apiConfig.endpoint()
-  private val token                  = apiConfig.token()
+  private val endpoint               = apiConfig.endpoint
+  private val token                  = apiConfig.token
   private val defaultSchema          = "sample_datasets"
   private val client = TDClient
     .newBuilder()
