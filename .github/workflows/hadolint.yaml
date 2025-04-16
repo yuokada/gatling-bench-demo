@@ -1,0 +1,19 @@
+on:
+  push:
+  pull_request:
+
+name: Dockerfile validation
+
+jobs:
+  docker_validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: ./docker/Dockerfile
+          no-fail: true
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: ./ecs/Dockerfile
+          no-fail: true
