@@ -18,7 +18,7 @@ object LoadSimulationConfig {
 
     var endpoint =
       props.getProperty(SimulationConstants.SIMULATION_PREFIX + "endpoint", SimulationConstants.DEFAULT_API_ENDPOINT)
-    var token = props.getProperty(SimulationConstants.SIMULATION_PREFIX + "api-token", "")
+    var token = props.getProperty(SimulationConstants.SIMULATION_PREFIX + "api-key", "")
 
     if (sys.env.contains("TD_API_ENDPOINT")) {
       endpoint = sys.env("TD_API_ENDPOINT")
