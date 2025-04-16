@@ -44,15 +44,15 @@ object TpchQueryFeeder extends Feeder[String] {
   }
 
   def generateShowTables(table: String, schema: String = "sf1"): String = {
-    s"DESCRIBE tpch.${schema}.$table"
+    s"DESCRIBE tpch.$schema.$table"
   }
 
   def generateCountQuery(table: String, schema: String = "sf1"): String = {
-    s"SELECT COUNT(*) FROM tpch.${schema}.$table"
+    s"SELECT COUNT(*) FROM tpch.$schema.$table"
   }
 
   def generateSimpleSelectQuery(table: String, schema: String = "sf1"): String = {
     val limit = Random.nextInt(31) + 1
-    s"SELECT * FROM tpch.${schema}.$table LIMIT $limit"
+    s"SELECT * FROM tpch.$schema.$table LIMIT $limit"
   }
 }

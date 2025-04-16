@@ -14,7 +14,7 @@ class TdBasicSimulation extends Simulation {
     .newBuilder()
     .setEndpoint(endpoint)
     .setApiKey(token)
-    .build();
+    .build()
 
   private val simulationConfig = LoadSimulationConfig.loadSimulationConfig()
   private val defaultSchema    = simulationConfig.schema
