@@ -10,7 +10,7 @@ RUN mvn clean package
 FROM eclipse-temurin:17-jdk-jammy
 
 WORKDIR /app
-RUN apt-get update && apt-get install -y unzip curl && \
+RUN apt-get update && apt-get install --no-install-recommends -y unzip curl && \
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
     unzip awscliv2.zip && ./aws/install && rm -rf awscliv2.zip aws
 

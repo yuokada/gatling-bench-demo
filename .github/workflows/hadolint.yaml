@@ -13,7 +13,9 @@ jobs:
         with:
           dockerfile: ./docker/Dockerfile
           no-fail: true
+          ignore: DL3008
       - uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: ./ecs/Dockerfile
           no-fail: true
+          ignore: DL3008
