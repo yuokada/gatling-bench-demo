@@ -1,0 +1,19 @@
+name: Docker Image Build
+
+on:
+  push:
+    branches: [ "master" ]
+    paths-ignore:
+      - etc/*
+  pull_request:
+    branches: [ "master" ]
+    paths-ignore:
+      - etc/*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker image build . --file Dockerfile --tag docker-embulk:$(date +%s)
