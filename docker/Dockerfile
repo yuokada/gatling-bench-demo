@@ -7,7 +7,7 @@ COPY . .
 RUN mvn clean package
 
 # --------------------------------
-FROM eclipse-temurin:17-jdk-jammy
+FROM eclipse-temurin:21-jdk-jammy
 
 WORKDIR /app
 COPY --from=builder /app /app
