@@ -16,4 +16,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker image build . --file Dockerfile --tag docker-embulk:$(date +%s)
+      run: docker image build . --file docker/Dockerfile --tag gatling-runner:$(date +%s)
