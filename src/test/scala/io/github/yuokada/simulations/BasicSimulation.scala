@@ -26,11 +26,11 @@ class BasicSimulation extends Simulation {
 //      .during(30.seconds))
 //      .throttle(jumpToRps(10), holdFor(10.minutes))
 //  ).protocols(httpProtocol)
-  private val simulationConfig = LoadSimulationConfig.loadSimulationConfig()
+  private val simulationConfig = SimulationConfigLoader.loadSimulationConfig()
   setUp(
     scn.inject(
       constantUsersPerSec(simulationConfig.maxConcurrentClients.toFloat)
-        .during(30.seconds)
+        .during(simulationConfig.testDurationSeconds)
     )
   ).protocols(httpProtocol)
 }
