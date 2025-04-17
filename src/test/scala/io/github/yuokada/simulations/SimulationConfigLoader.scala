@@ -12,38 +12,37 @@ object SimulationConstants {
 }
 
 object SimulationConfigLoader {
+  private val SIMULATION_CONFIG_FILE = "simulation.conf"
+  private val fallbackConfig = ConfigFactory.parseString(
+    s"""
+      |schema: ${DEFAULT_SCHEMA}
+      |active-user: 1
+      |test-duration: 60S
+      |""".stripMargin
+  )
 
   def loadApiConfig(): TdApiConfig = {
-    val config = ConfigFactory.load("simulation.conf")
-    var endpoint = if (config.hasPath("apiEndpoint")) {
-      config.getString("apiEndpoint")
+    val config = ConfigFactory.load(SIMULATION_CONFIG_FILE).withFallback(fallbackConfig).resolve()
+    val endpoint = if (config.hasPath("api-endpoint")) {
+      config.getString("api-endpoint")
     } else {
       throw new IllegalArgumentException("API endpoint not found in configuration")
     }
-    var token = if (config.hasPath("apiKey")) {
-      config.getString("apiKey")
+    val token = if (sys.env.contains("TD_API_KEY")) {
+      sys.env("TD_API_KEY")
+    } else if (config.hasPath("api-token")) {
+      config.getString("api-token")
     } else {
-      throw new IllegalArgumentException("API key not found in configuration")
+      throw new IllegalArgumentException("API token not found in configuration")
     }
-    if (sys.env.contains("TD_API_ENDPOINT")) {
-      endpoint = sys.env("TD_API_ENDPOINT")
-    }
-    if (sys.env.contains("TD_API_KEY")) {
-      token = sys.env("TD_API_KEY")
-    }
-
     TdApiConfig(endpoint, token)
   }
 
   def loadSimulationConfig(): SimulationConfig = {
-    val config = ConfigFactory.load("simulation.conf")
-    val schema = if (config.hasPath("schema")) {
-      config.getString("schema")
-    } else {
-      DEFAULT_SCHEMA
-    }
-    val maxClients = Option(config.getInt("active-user")).getOrElse(1) // default to 1 active user
-    val testDuration = Option(config.getDuration("test-duration")).getOrElse(Duration.parse("60S"))
+    val config       = ConfigFactory.load(SIMULATION_CONFIG_FILE).withFallback(fallbackConfig)
+    val schema       = config.getString("schema")
+    val maxClients   = config.getInt("active-user") // default to 1 active user
+    val testDuration = config.getDuration("test-duration")
 
     SimulationConfig(schema, maxClients, FiniteDuration.apply(testDuration.toSeconds, TimeUnit.SECONDS))
   }

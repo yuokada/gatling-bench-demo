@@ -7,7 +7,7 @@ import io.gatling.core.session.ExpressionSuccessWrapper
 import scala.concurrent.duration.DurationInt
 
 class TdBasicSimulation extends Simulation {
-  private val apiConfig = SimulationConfigLoader.loadApiConfig()
+  private val apiConfig        = SimulationConfigLoader.loadApiConfig()
   private val simulationConfig = SimulationConfigLoader.loadSimulationConfig()
   private val tdClient = TDClient
     .newBuilder()
