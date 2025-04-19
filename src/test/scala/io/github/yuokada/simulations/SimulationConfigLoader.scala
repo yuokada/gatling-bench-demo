@@ -28,12 +28,13 @@ object SimulationConfigLoader {
     } else {
       throw new IllegalArgumentException("API endpoint not found in configuration")
     }
-    val token = if (sys.env.contains("TD_API_KEY")) {
-      sys.env("TD_API_KEY")
-    } else if (config.hasPath("api-token")) {
-      config.getString("api-token")
+    val s = "TD_API_KEY"
+    val token = if (sys.env.contains(s)) {
+      sys.env(s)
+//    else if (config.hasPath("api-token")) {
+//      config.getString("api-token")
     } else {
-      throw new IllegalArgumentException("API token not found in configuration")
+      throw new IllegalArgumentException(s"The $s environment variable must be set")
     }
     TdApiConfig(endpoint, token)
   }

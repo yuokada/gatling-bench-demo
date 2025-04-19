@@ -7,8 +7,9 @@ class SimulationConfigLoaderWithoutEnvironmentVariableTest extends AssertionsFor
 
   @Test
   def throwException(): Unit = {
-    intercept[IllegalArgumentException] {
+    val exception = intercept[IllegalArgumentException] {
       SimulationConfigLoader.loadApiConfig()
     }
+    assert(exception.getMessage.contains("The TD_API_KEY environment variable must be set"))
   }
 }
