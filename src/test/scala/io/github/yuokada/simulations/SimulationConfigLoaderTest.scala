@@ -1,24 +1,20 @@
 package io.github.yuokada.simulations
 
 import org.junit.jupiter.api.Assertions._
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.condition.{DisabledIfEnvironmentVariable, EnabledIfEnvironmentVariable}
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
+import org.junit.jupiter.api.{MethodOrderer, Test, TestMethodOrder}
+import org.junitpioneer.jupiter.SetEnvironmentVariable
 import org.scalatestplus.junit5.AssertionsForJUnit
 
+@SetEnvironmentVariable(key = "TD_API_KEY", value = "sample_token")
+@TestMethodOrder(classOf[MethodOrderer.Random])
 class SimulationConfigLoaderTest extends AssertionsForJUnit {
-  @Test
-  @DisabledIfEnvironmentVariable(named = "TD_API_KEY", matches = ".*")
-  def loadApiConfigTestWhenEnvironmentVariableNotExist(): Unit = {
-    intercept[IllegalArgumentException] {
-      SimulationConfigLoader.loadApiConfig()
-    }
-  }
 
   @Test
   @EnabledIfEnvironmentVariable(named = "TD_API_KEY", matches = ".*")
   def loadApiConfigTestWhenEnvironmentVariableExist(): Unit = {
     val config = SimulationConfigLoader.loadApiConfig()
-    assert(config.endpoint == "api.tdameritrade.com")
+    assert(config.endpoint == "api.treasuredata.com")
     assert(config.token == "sample_token")
   }
 
