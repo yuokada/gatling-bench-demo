@@ -36,7 +36,7 @@ class TdBasicSimulation extends Simulation {
     holdFor(1.hour)             // Sustain for 1 hour
   ).maxDuration(1.hour)
    .assertions(
-     global.requests.count.lte(5000),       // ② max 5000 requests
-     global.activeUsers.count.lte(10)       // ③ concurrency <= 10
+     global.allRequests.count.lte(5000), // ② max 5000 requests
+     forAll.requestsPerSec.lte(10)       // ③ concurrency <= 10
    )
 }
