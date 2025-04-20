@@ -28,8 +28,17 @@ class TdBasicSimulation extends Simulation {
 
   setUp(
     scn.inject(
+//      constantUsersPerSec(5.0) // ① 5 requests/sec
+//        .during(1.hour)        // ② 1 hour total
       constantUsersPerSec(simulationConfig.maxConcurrentClients.doubleValue())
         .during(simulationConfig.testDurationSeconds)
     )
-  )
+  ).throttle(
+    reachRps(5).in(10.seconds), // Gradually reach 5 RPS
+    holdFor(1.hour)             // Sustain for 1 hour
+  ).maxDuration(1.hour)
+    .assertions(
+      global.allRequests.count.lte(5000), // ② max 5000 requests
+      forAll.requestsPerSec.lte(10)       // ③ concurrency <= 10
+    )
 }
