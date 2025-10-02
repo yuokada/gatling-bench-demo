@@ -159,8 +159,7 @@
                         <configuration>
                             <scala>
                                 <scalafmt>
-                                    <!-- <version>3.9.10</version> -->
-                                    <!-- <version>3.8.3</version> -->
+                                    <version>3.7.3</version>
                                     <file>${project.basedir}/.scalafmt.conf</file>
                                     <scalaMajorVersion>${scala.major-version}</scalaMajorVersion>
                                 </scalafmt>
