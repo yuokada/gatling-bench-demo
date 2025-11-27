@@ -9,7 +9,7 @@
 
     <properties>
         <scala.version>2.13.17</scala.version>
-        <gatling.version>3.13.5</gatling.version>
+        <gatling.version>3.14.7</gatling.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <!--  Original properties  -->
