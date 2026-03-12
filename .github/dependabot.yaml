@@ -5,6 +5,10 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      docker-actions-dependencies:
+        patterns:
+          - "docker/*"
   - package-ecosystem: "maven"
     directory: "/"
     schedule:
